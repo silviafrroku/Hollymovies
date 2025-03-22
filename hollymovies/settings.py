@@ -144,4 +144,13 @@ LOGIN_REDIRECT_URL = '/index/'  # Ose URL tjetër sipas dëshirës
 LOGOUT_REDIRECT_URL = reverse_lazy('user-login')
 LOGIN_URL = reverse_lazy('user-login')
 
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
+}
+
 

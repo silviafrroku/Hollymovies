@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from viewer.models import Movie
+from viewer.models import Movie, Genre
 
 
 class MovieReadModelSerializers(serializers.ModelSerializer):
@@ -8,18 +8,31 @@ class MovieReadModelSerializers(serializers.ModelSerializer):
         model = Movie
         fields = '__all__'
 
-class MovieCreateModelSerializers(serializers.ModelSerializer):
-    class Meta :
-        model = Movie
-        exlude = ['created']
 
+class MovieCreateModelSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        exclude = ["created"]
+
+
+class MoviePartialUpdateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        exclude = ["id", "created"]
+
+    title = serializers.CharField(max_length=100, required=False)
+    description = serializers.CharField(required=False)
+    genre = serializers.PrimaryKeyRelatedField(queryset=Genre.objects.all(), required=False)
+    rating = serializers.IntegerField(required=False)
+    released = serializers.DateField(required=False)
+
+
+# or
 class MovieCreateSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=100)
 
-
-    def validated_data(self,attrs):
+    def validate(self, attrs):  # validate data from multiple fields
         pass
 
-    def validate_title(self,):
+    def validate_title(self):  # validates something in title
         pass
-
