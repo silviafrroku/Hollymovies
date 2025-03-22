@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>My movies</h1>
+    {% for movie in all_movies %}
+
+        <p>{{movie}}
+            <button>
+                <a href= {% url 'movie-update' movie.pk %}>
+                Edit</a>
+
+            </button>
+            <button>
+                <a href= {% url 'movie-delete' movie.pk %}>
+                Delete</a>
+
+            </button>
+        </p>
+
+
+
+    {% endfor %}
+    <button style="background-color: #4da6ff; color: white; font-weight: bold; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+        <a href={% url 'movie-create' %}>
+        Add Movie</a>
+
+    </button>
+
+
+
+{% endblock %}
+
+
+
+
+
+
